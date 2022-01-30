@@ -21,13 +21,14 @@ export function useFetchEntry<
         .then((res) => res.data);
     },
     {
-      select: (value) => ({
-        id: value.url.replace(
-          `https://www.anapioficeandfire.com/api/${url}/`,
-          ""
-        ),
-        ...value,
-      }),
+      select: (value) =>
+        ({
+          id: value.url.replace(
+            `https://www.anapioficeandfire.com/api/${url}/`,
+            ""
+          ),
+          ...value,
+        } as unknown as K),
     }
   );
   return [data, isLoading];
