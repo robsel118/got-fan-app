@@ -24,7 +24,7 @@ function App() {
           <UserProvider>
             <Toolbar sx={{ flexWrap: "wrap", gap: "1rem" }}>
               <Typography
-                variant="h1"
+                variant="h6"
                 color="inherit"
                 noWrap
                 sx={{ flexGrow: 1 }}
