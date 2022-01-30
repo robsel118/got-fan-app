@@ -1,4 +1,5 @@
 export interface Book {
+  id: string
   readonly url: string
   readonly name: string
   readonly isbn: string

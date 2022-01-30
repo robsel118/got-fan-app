@@ -1,4 +1,5 @@
 export interface House {
+  id: string
   readonly url: string
   readonly name: string
   readonly region: string

@@ -1,4 +1,5 @@
 export interface Character {
+  id: string
   readonly url: string
   readonly name: string
   readonly gender: string

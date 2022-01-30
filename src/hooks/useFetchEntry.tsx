@@ -5,15 +5,12 @@ import { Book } from "../interface/book.interface";
 import { House } from "../interface/house.interface.ts";
 import { Character } from "../interface/character.interface";
 
-export function useFetchEntry<
-  T extends Book | House | Character,
-  K = {
-    id: string;
-  } & T
->(url: string): [K | undefined, boolean] {
+export function useFetchEntry<T extends Book | House | Character>(
+  url: string
+): [T | undefined, boolean] {
   const location = useLocation();
 
-  const { data, isLoading } = useQuery<T, unknown, K>(
+  const { data, isLoading } = useQuery<T, unknown, T>(
     [url, location.pathname],
     () => {
       return axios
@@ -21,14 +18,10 @@ export function useFetchEntry<
         .then((res) => res.data);
     },
     {
-      select: (value) =>
-        ({
-          id: value.url.replace(
-            `https://www.anapioficeandfire.com/api/${url}/`,
-            ""
-          ),
-          ...value,
-        } as unknown as K),
+      select: (value) => ({
+        ...value,
+        id: value.url.split("/").pop()!,
+      }),
     }
   );
   return [data, isLoading];

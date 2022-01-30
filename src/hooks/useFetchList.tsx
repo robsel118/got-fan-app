@@ -6,13 +6,10 @@ import { Book } from "../interface/book.interface";
 import { House } from "../interface/house.interface.ts";
 import { Character } from "../interface/character.interface";
 
-interface WithId {
-  id: string;
-}
 export function useFetchLore<T extends Book | House | Character>(
   url: string
 ): [
-  WithId[] | undefined,
+  T[] | undefined,
   boolean,
   number,
   Dispatch<SetStateAction<number>>,
@@ -22,7 +19,7 @@ export function useFetchLore<T extends Book | House | Character>(
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
 
-  const { data, isLoading } = useQuery<T[], unknown, WithId[]>(
+  const { data, isLoading } = useQuery<T[], unknown, T[]>(
     [url, location.pathname, currentPage],
     () => {
       return axios
@@ -38,8 +35,8 @@ export function useFetchLore<T extends Book | House | Character>(
     {
       select: (values) =>
         values.map((value) => ({
-          id: value.url.split("/").pop()!,
           ...value,
+          id: value.url.split("/").pop()!,
         })),
     }
   );
